@@ -26,7 +26,7 @@ class(test) <- "hsmm.data"
 # initialize values for learning the HSMM
 
 J <- 4
-M = 500
+M = 150
 
 d <- cbind(dunif(1:M,0,150),
            dunif(1:M,0,150),
