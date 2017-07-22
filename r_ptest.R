@@ -15,7 +15,7 @@ train = list(x=c(data1,data2), N=c(length(data1),length(data2)))
 class(train) <- "hsmm.data"
 
 # grab the testing window data
-dataT = as.matrix(read.csv("~/318_personal/318/test1.csv"))
+dataT = as.matrix(read.csv("~/318_personal/318/rw1.csv"))
 dataT = as.numeric(dataT)
 test = list(x=dataT, N=length(dataT))
 #train_t <- rw_list[c("x","N")]
@@ -34,12 +34,12 @@ d <- cbind(dunif(1:M,0,150),
            dunif(1:M,0,150))
 
 start.np <- hsmmspec(init=rep(1/J,J),
-                     transition=matrix(c(.00,.90,.10,.00,
+                     transition=matrix(c(.00,.75,.10,.05,
                                          .33,.00,.60,.07,
-                                         .00,.90,.00,.10,
-                                         .00,.10,.90,.00),nrow=J),
-                     parms.emission=list(mu=c(1.25, 1.75, 3, 4.75),
-                                         sigma=c(0.25, 0.5, 0.5, 1)),
+                                         .00,.50,.00,.50,
+                                         .00,.50,.50,.00),nrow=J),
+                     parms.emission=list(mu=c(0.5, 1.5, 3.25, 5),
+                                         sigma=c(0.75, 0.5, 1, 1)),
                      sojourn=list(d=d,type='nonparametric'),
                      dens.emission=dnorm.hsmm)
 
@@ -63,7 +63,7 @@ plot(x=c(1:test_p[["N"]]),y=test_p[["s"]]
      
      
      
-     )
+)
 plot(x=c(1:train_p[["N"]]),y=train_p[["s"]])
 # summary(h.act)
 
