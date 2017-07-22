@@ -5,7 +5,6 @@ import datetime as dt
 import matplotlib.pyplot as plt
 
 
-
 from rpy2.robjects import r, pandas2ri
 import rpy2.robjects as ro
 from rpy2.robjects.packages import importr
@@ -33,9 +32,13 @@ def findDateIndexOld(date):
     return -1
 
 def findDateIndex(date):
+    # start date of first full day of observations in the data
     start_date = dt.date(2006, 12, 17)
+    #how many days have passed between start date and input date
     days = (date - start_date).days
 
+    # return the index: 60 obs/minute; 1440 obs/day
+    # we return the csv row where our input date occurs
     return days*1440
 
 test_date = dt.date(2007, 2, 15)
@@ -44,18 +47,28 @@ test_date = dt.date(2007, 2, 15)
 #initially, just get day_periods
 # num = number of reference windows to learn from
 # date = date of test window
+# wintype = 7, get same day in previous num weeks
+# windtype = 1, get previous num days
 def getRefWindow(num, wintype, date):
     idx = findDateIndex(date)
 
+    #create empty data frames
     rf = pd.DataFrame([])
     tf = pd.DataFrame([])
 
     #now jump back (wintype = 7 for day_period, day, or week), and copy slices into our new DataFrame
     idx = idx - (num*1440*wintype)
 
-    # add windows to dataframe
+    # add reference windows to dataframe
     for i in range(0,num):
+      # I think the 1:2 is the global active power column
       rf = rf.append(data.iloc[idx+day_start:idx+day_end, 1:2])
+
+      #output to csv for testing.
+      temp = data.iloc[idx+day_start:idx+day_end, 1:2]
+      temp.to_csv('ref' + str(i) + '.csv', header=False, index=False)
+
+      # advance through the days and append
       idx = idx + (1440*wintype)
 
     # get test window
@@ -65,19 +78,19 @@ def getRefWindow(num, wintype, date):
 
 # get reference window data for training
 print("\nGetting reference windows...\n")
-rw,tw = getRefWindow(1, 7, test_date)
+rw,tw = getRefWindow(3, 1, test_date)
 
 # move the dataframes over to R
 
-rw = rw.reshape((rw.shape[0],))
-
-r_rw = ro.numpy2ri.py2ri(rw)
-r_tw = pandas2ri.py2ri(tw)
+# rw = rw.reshape((rw.shape[0],))
+#
+# r_rw = ro.numpy2ri.py2ri(rw)
+# r_tw = pandas2ri.py2ri(tw)
 
 #note: need to swap order of these later!
 #also: need to set N to proper length for each rw!!
 
-r_rwlist = r.list(N=780, x=r_rw)
+# r_rwlist = r.list(N=780, x=r_rw)
 
 
 
@@ -165,11 +178,13 @@ rstring="""
     }
 """
 
-rfunc=ro.r(rstring)
 
-r_df=rfunc(r_rwlist)
+# put the string into a function
+# rfunc=ro.r(rstring)
+# call the function in R
+# r_df=rfunc(r_rwlist)
 
-#train mhsmm
+
 
 
 
