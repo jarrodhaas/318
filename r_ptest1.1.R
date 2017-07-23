@@ -32,7 +32,7 @@ M = 500
 
 d <- cbind(dunif(1:M,0,150),dunif(1:M,0,150),dunif(1:M,0,150))
 
-dstart.np <- hsmmspec(init=rep(1/J,J),
+start.np <- hsmmspec(init=rep(1/J,J),
                      transition=matrix(c(0,.5,.5, .5,0,.5, .5,.5,0),nrow=J),
                      parms.emission=list(mu=c(1,2,3), sigma=c(0.5,1,1)),
                      sojourn=list(d=d,type='nonparametric'),
@@ -40,7 +40,7 @@ dstart.np <- hsmmspec(init=rep(1/J,J),
 
 
 #fit the model and predict
-h.act <- hsmmfit(train,start.np,mstep=mstep.norm,M=M,graphical=FALSE)
+h.act <- hsmmfit(test,start.np,mstep=mstep.norm,M=M,graphical=FALSE)
 predicted <- predict(h.act,test)
 #mean(predicted$s!=train$s)
 

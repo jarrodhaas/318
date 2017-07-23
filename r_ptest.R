@@ -9,7 +9,6 @@ data1List = list(x=data1, N=length(data1))
 data2 = as.matrix(read.csv("/Users/JRod/Desktop/Summer 2017/318D2/project/tw2.csv"))
 data2 = as.numeric(data2)
 data2List = list(x=data2, N=length(data2))
-class(data2List) <- "hsmm.data"
 
 train = list(x=c(data1,data2), N=c(length(data1),length(data2)))
 class(train) <- "hsmm.data"
