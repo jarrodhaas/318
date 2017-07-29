@@ -97,7 +97,7 @@ print("\nGetting reference windows...\n")
 # parameters
 #
 
-test_date = dt.date(2007, 5, 20)
+test_date = dt.date(2007, 4, 27)
 #0700
 day_start = 420
 #1900
@@ -106,7 +106,7 @@ day_end = 1140
 # number of reference windows
 num_ref = 3
 # intervals -- 7 is same day previous week, 1 is previous day
-win_type = 7
+win_type = 1
 
 #
 # End parameters

@@ -33,8 +33,10 @@ M = 500
 d <- cbind(dunif(1:M,0,150),dunif(1:M,0,150),dunif(1:M,0,150))
 
 start.np <- hsmmspec(init=rep(1/J,J),
-                     transition=matrix(c(0,.5,.5, .5,0,.5, .5,.5,0),nrow=J),
-                     parms.emission=list(mu=c(1,2,3), sigma=c(0.5,1,1)),
+                     transition=matrix(c(0,.5,.5, 
+                                         .5,0,.5, 
+                                         .5,.5,0),nrow=J),
+                     parms.emission=list(mu=c(.6,2,3.5), sigma=c(0.5,.5,.5)),
                      sojourn=list(d=d,type='nonparametric'),
                      dens.emission=dnorm.hsmm)
 
