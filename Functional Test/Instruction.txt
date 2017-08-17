@@ -1,0 +1,9 @@
+1.Extract the folder
+2.Observe 3 test set
+3.Do anomaly detection on each test set separately
+ - For point anomaly detection, apply threshold 0.75
+ - For Collective anomaly detection consider the size of windows as 10, [Windows inclusing 5 or more anomaly points are anomalies]
+ - Apply contexual anomaly detection in case that you are able 
+4. Save the final result in the same format as course project,
+5. Submit the result to coursepage. 
+ 

@@ -63,14 +63,14 @@ del data['index']
 
 # In[8]:
 
-data['month'] = pd.DataFrame({'month' : np.zeros(data.size)})
-data['week'] = pd.DataFrame({'week' : np.zeros(data.size)})
-data['dow'] = pd.DataFrame({'dow' : np.zeros(data.size)})
-data['day_period'] = pd.DataFrame({'day_period' : np.zeros(data.size)})
+#data['month'] = pd.DataFrame({'month' : np.zeros(data.size)})
+#data['week'] = pd.DataFrame({'week' : np.zeros(data.size)})
+#data['dow'] = pd.DataFrame({'dow' : np.zeros(data.size)})
+#data['day_period'] = pd.DataFrame({'day_period' : np.zeros(data.size)})
 
 #get time categories: month, week, day, day_period
-print("\nGetting time categories...\n")
-data = data.apply(getTimeCategory, axis=1)
+#print("\nGetting time categories...\n")
+#data = data.apply(getTimeCategory, axis=1)
 
 print("\nWriting CSV...\n")
 data.to_csv("sorted.csv")
